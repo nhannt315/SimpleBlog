@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var app = express();
 //body parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //View
 app.set("views", __dirname + "/apps/views");

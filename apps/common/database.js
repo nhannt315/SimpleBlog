@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     host: config.get("mysql.host"),
     user: config.get("mysql.user"),
     password: config.get("mysql.password"),
-    databse: config.get("mysql.databse"),
+    database: config.get("mysql.database"),
     port: config.get("mysql.port")
 });
 
