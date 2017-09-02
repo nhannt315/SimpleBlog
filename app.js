@@ -1,11 +1,20 @@
 var express = require("express");
 var config = require("config");
 var bodyParser = require("body-parser");
+var session = require("express-session");
 
 var app = express();
 //body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//Session
+app.use(session({
+    secret: config.get("secret_key"),
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
 
 //View
 app.set("views", __dirname + "/apps/views");
