@@ -8,7 +8,6 @@ function Post() {
                 content: tinymce.get("content-editor").getContent(),
                 author: $(".author").val()
             };
-            var baseUrl = `${location.protocol}//${document.domain}:${location.port}`;
             $.ajax({
                 url: `/admin/post/edit`,
                 method: "PUT",
@@ -22,6 +21,23 @@ function Post() {
                 error: function (data) {
 
                 }
+            });
+        });
+
+        $("#post-delete").click(function (e) {
+            e.preventDefault();
+            let postID = $(this).attr("post-id");
+            $.ajax({
+               url:"/admin/post/delete",
+               method: "DELETE",
+               data:{
+                   id: postID
+               },
+               dataType:"json",
+               success: function (data) {
+                   if(data && data.status_code === 200){}
+                   location.reload();
+               }
             });
         });
     }

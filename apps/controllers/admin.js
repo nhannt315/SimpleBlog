@@ -7,6 +7,10 @@ var user_md = require("../models/user");
 var post_md = require("../models/post");
 
 router.get("/", function (req, res) {
+    if (!req.session.user){
+        res.redirect("/admin/signin");
+        return;
+    }
     var data = post_md.getAllPosts();
     data
         .then(function (posts) {
@@ -21,7 +25,7 @@ router.get("/", function (req, res) {
                 data: {error: "Get Post data is Error!"}
             });
         });
-})
+});
 
 router.get("/signup", function (req, res) {
     res.render("signup", {data: {}});
@@ -59,7 +63,7 @@ router.post("/signup", function (req, res) {
 
     result
         .then(function (data) {
-            res.redirect("/admin/signin");
+            res.redirect("signin");
         })
         .catch(function (err) {
             res.render("signup", {
@@ -99,6 +103,10 @@ router.post("/signin", function (req, res) {
 });
 
 router.get("/post/new", function (req, res) {
+    if (!req.session.user){
+        res.redirect("/admin/signin");
+        return;
+    }
     res.render("admin/post/new", {data: {error: false}});
 });
 
@@ -131,6 +139,10 @@ router.post("/post/new", function (request, response) {
 });
 
 router.get("/post/:id/edit", function (request, response) {
+    if (!req.session.user){
+        res.redirect("/admin/signin");
+        return;
+    }
     var params = request.params;
     var id = params.id;
 
@@ -175,6 +187,44 @@ router.put("/post/edit", function (request, response) {
         });
 
     }
+});
+
+router.delete("/post/delete", function (request, response) {
+    var postId = request.body.id;
+    var data = post_md.deletePost(postId);
+    if (!data) {
+        response.json({status_code: 500});
+    } else {
+        data.then(function (result) {
+            response.json({status_code: 200});
+        }).catch(function (err) {
+            response.json({status_code: 500});
+        })
+    }
+});
+
+router.get("/post", function (req, res) {
+    if (!req.session.user){
+        res.redirect("/admin/signin");
+        return;
+    }
+    res.redirect("/admin");
+});
+
+router.get("/user", function (req, res) {
+    var data = user_md.getAllUsers();
+    data.then(function (users) {
+        var data = {
+            users: users,
+            error: false
+        };
+        res.render("admin/user", {data: data});
+    }).catch(function (err) {
+        var data = {
+            error: "Cannot get user list"
+        };
+        res.render("admin/user", {data: data});
+    });
 });
 
 module.exports = router;

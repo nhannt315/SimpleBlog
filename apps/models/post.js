@@ -63,9 +63,25 @@ function updatePost(params) {
     return false;
 }
 
+function deletePost(id) {
+    if(id){
+        var defer = q.defer();
+        var query = conn.query("DELETE FROM posts WHERE id = ?",[id], function (err, result) {
+           if(err){
+               defer.reject(err);
+           }else {
+               defer.resolve(result);
+           }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
 module.exports = {
     getAllPosts: getAllPosts,
     addPost: addPost,
     getPostById: getPostById,
-    updatePost: updatePost
+    updatePost: updatePost,
+    deletePost: deletePost
 };
