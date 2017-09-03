@@ -8,7 +8,11 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tech Blog</title>
+        <title>
+            <% if(data && data.post){ %>
+            <%= data.post.title %>
+            <% } %>
+        </title>
 
         <!-- Bootstrap core CSS -->
         <link href="/static/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -54,49 +58,33 @@
         </nav>
 
         <!-- Page Header -->
-        <header class="masthead" style="background-image: url('/static/theme/img/home-bg.jpg')">
+        <header class="masthead" style="background-image: url('/static/theme/img/post-bg.jpg')">
             <div class="container">
                 <div class="row">
+                    <% if(data && data.post){ %>
                     <div class="col-lg-8 col-md-10 mx-auto">
-                        <div class="site-heading">
-                            <h1>Tech Blog</h1>
-                            <span class="subheading">The best technology for you</span>
+                        <div class="post-heading">
+                            <h1>
+                                <%= data.post.title %>
+                            </h1>
+                            <span class="meta">Posted by
+                <a href="#"><%= data.post.author %></a>
+                on <%= data.post.created_at %></span>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <% if (data && data.posts){ %>
-                    <% for ( var i = 0 ;i < data.posts.length; i++){ %>
-                    <div class="post-preview">
-                        <a href="/blog/post/<%=data.posts[i].id%>">
-                            <h2 class="post-title">
-                                <%= data.posts[i].title %>
-                            </h2>
-                            <h3 class="post-subtitle">
-                                <%- data.posts[i].content %>
-                            </h3>
-                        </a>
-                        <p class="post-meta">Posted by
-                            <a href="#"><%= data.posts[i].author %></a>
-                            on <%= data.posts[i].created_at %></p>
-                    </div>
-                    <hr>
-                    <% } %>
-                    <% } %>
-
-                    <!-- Pager -->
-                    <div class="clearfix">
-                        <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
-                    </div>
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <%- data.post.content%>
                 </div>
             </div>
-        </div>
+        </article>
 
         <hr>
 
@@ -108,30 +96,30 @@
                         <ul class="list-inline text-center">
                             <li class="list-inline-item">
                                 <a href="#">
-                                  <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                  </span>
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a href="#">
-                                  <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                  </span>
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a href="#">
-                                  <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                  </span>
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
                                 </a>
                             </li>
                         </ul>
-                        <p class="copyright text-muted">Copyright &copy; Tech blog 2017</p>
+                        <p class="copyright text-muted">Copyright &copy; Tech Blog 2017</p>
                     </div>
                 </div>
             </div>
