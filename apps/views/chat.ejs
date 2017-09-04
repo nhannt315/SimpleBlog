@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <% include admin/layout/head.ejs %>
+        <link rel="stylesheet" href="/static/css/chat.css">
+        <title>Chat Application</title>
+    </head>
+    <body>
+        <div class="container">
+            <ul id="conversation">
+
+            </ul>
+            <form id="chat-form" action="">
+                <input type="text" name="message" id="message" class="form-control">
+                <button id="btn-send" style="margin-top: 20px" class="btn btn-success">Send</button>
+            </form>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="/static/js/chat.js"></script>
+</html>
